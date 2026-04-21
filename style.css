@@ -1,4 +1,4 @@
-/* background */
+
 body {
     height: 100vh;
     display: flex;
@@ -18,20 +18,19 @@ body {
     color: white;
 }
 
-/* judul */
+
 .login h1 {
     text-align: center;
     margin-bottom: 20px;
      font-weight: bold;
 }
 
-/* input */
 .input {
     
     margin-bottom: 15px;
 }
 
-/* tombol */
+
 button {
     width: 100%;
     border-radius: 25px !important;
@@ -39,7 +38,7 @@ button {
     background-color: blueviolet;
 }
 
-/* remember + link */
+
 .remember {
     display: flex;
     justify-content: space-between;
