@@ -1,0 +1,54 @@
+/* background */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(91, 0, 116);
+}
+
+/* container utama */
+.login {
+    background-color:rgb(207, 24, 188);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 320px;
+    color: white;
+}
+
+/* judul */
+.login h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* input */
+.input {
+    
+    margin-bottom: 15px;
+}
+
+/* tombol */
+button {
+    width: 100%;
+    border-radius: 25px !important;
+    margin-top: 10px;
+    background-color: blueviolet;
+}
+
+/* remember + link */
+.remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.remember a {
+    color: white;
+    
+}
+
