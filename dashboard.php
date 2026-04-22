@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+include 'koneksi.php';
+$query = mysqli_query($koneksi, "SELECT * FROM cicilan");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +24,7 @@
 </div>
     </header>
 <div class=container>
-    <div class="tambahbayar">
+    <div class="title">
         <h3>Data Cicilan</h3>
         <p>Keloala semua cicilan</p>
        <a href="tambah.php" class="btn btn-primary">+ Tambah Cicilan</a>
@@ -28,6 +32,7 @@
         <hr>
     </div>
     <div class="tampilan">
+         <?php if (mysqli_num_rows($query) == 0) { ?>
         <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
 fill="currentColor" viewBox="0 0 24 24" >
 <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
@@ -36,6 +41,39 @@ fill="currentColor" viewBox="0 0 24 24" >
 </svg>
         <h5> Belum ada cicilan</h5>
         <p>Tambahkan Cicilan baru untuk memulai</p>
+        <?php } else { ?>
+         <table class="table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Barang</th>
+                    <th>Total Harga</th>
+                    <th>Terbayar</th>
+                    <th>Sisa</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+                <?php while ($data = mysqli_fetch_assoc($query)) { ?>
+
+                    <tr>
+                        <td><?= $data['id_cicilan'] ?></td>
+                        <td><?= $data['nama_cicilan'] ?></td>
+                        <td><?= $data['total_harga'] ?></td>
+                        <td><?= $data['terbayar'] ?></td>
+                        <td><?= $data['sisa_hutang'] ?></td>
+                        <td><?= $data['status'] ?></td>
+                        <td>
+                            <a href="delete.php?id=<?= $data['id_cicilan'] ?>"class="btn btn-outline-primary">🗑️</a>
+                        </td>
+                    </tr>
+
+                <?php } ?>
+
+            </table>
+
+        <?php } ?>
+
+    </div>
     </div>
 </div>
 </body>

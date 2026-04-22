@@ -1,11 +1,53 @@
+<?php
+include "koneksi.php";
+
+if (isset($_POST['simpan'])) {
+
+    $nama = $_POST['nama_barang'];
+    $total = $_POST['total_harga'];
+
+    $terbayar = 0;
+    $sisa = $total;
+    $status = "aktif";
+
+    mysqli_query($koneksi, "INSERT INTO cicilan 
+    (nama_cicilan, total_harga, terbayar, sisa_hutang, status)
+    VALUES 
+    ('$nama', '$total', '$terbayar', '$sisa', '$status')");
+
+    header("location: dashboard.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tambah Cicilan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+   
+   <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    
+<div class="tambah">
+<h3>Tambah Cicilan</h3>
+
+<form method="POST">
+
+    <label>Nama Barang</label><br>
+    <input type="text" name="nama_barang"><br><br>
+
+    <label>Total Harga</label><br>
+    <input type="number" name="total_harga"><br><br>
+
+     <a href="dashboard.php">Batal</a>
+    <button type="submit" name="simpan">Simpan</button>
+
+   
+
+</form>
+</div>
 </body>
 </html>
