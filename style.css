@@ -1,16 +1,20 @@
 
 body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: whitesmoke;
+   margin:0;
+   background-color:#ffffff;
+   
 }
 
-
+.Login{
+     height: 100vh;
+    display: flex;
+    background: whitesmoke;
+    justify-content: center;
+    align-items: center;
+}
 .login {
     background: rgba(255, 255, 255, 0.9);
-    padding: 100px;
+    padding: 40px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.53);
@@ -51,7 +55,7 @@ body {
     font-size: 18px;
 }
 
-button {
+.login button {
     width: 100%;
     border-radius: 25px !important;
     margin-top: 30px;
@@ -73,3 +77,46 @@ button {
     
 }
 
+/*Dashboard*/
+.header {
+    background-color: #ffffff;
+    padding: 30px 50px;
+    display: flex;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    justify-content: space-between;
+     box-shadow: 0 10px 30px rgba(196, 188, 188, 0.53);
+
+}
+.header h2 {
+    margin: 0;
+    
+}
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+}
+.tambahbayar {
+    background: white;
+    padding: 25px;
+    border-radius: 20px 20px 0 0; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+.tambahbayar .btn {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.tampilan {
+    background: white;
+    padding: 25px;
+   
+    border-radius: 0 0 20px 20px; /* bawah bulat */
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+.tampilan svg {
+    width: 60px;
+    height: 60px;
+    color: #4A90E2;
+    margin-bottom: 10px;
+}
