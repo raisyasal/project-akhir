@@ -39,6 +39,7 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="Login">
     <div class="login">
         <form action="" method="POST">
          
@@ -67,5 +68,6 @@ if (isset($_POST['login'])) {
             </div>
             
         </div>
+</div>
 </body>
 </html>
