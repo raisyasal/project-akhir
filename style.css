@@ -1,17 +1,20 @@
 
 body {
    margin:0;
-   background-color:#ffffff;
+   background: #F1F5F9;
+   font-family: 'Segoe UI';
    
 }
 
-.Login{
-     height: 100vh;
+.Login {
+    height: 100vh;
     display: flex;
     background: whitesmoke;
     justify-content: center;
     align-items: center;
+
 }
+
 .login {
     background: rgba(255, 255, 255, 0.9);
     padding: 40px;
@@ -44,7 +47,7 @@ body {
     width: 100%;
     position: relative;
     color: black;
-   margin-top: 20px;
+    margin-top: 20px;
 }
 
 .input i {
@@ -79,46 +82,112 @@ body {
 
 /*Dashboard*/
 .header {
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     padding: 30px 50px;
     display: flex;
     align-items: center;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     justify-content: space-between;
-     box-shadow: 0 10px 30px rgba(196, 188, 188, 0.53);
-
+    margin-bottom: 20px;
+   
 }
+
+.logout-link {
+    color: #F1F5F9;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
 .header h2 {
     margin: 0;
-    
 }
+
 .container {
+    background: white;
     max-width: 800px;
     margin: 40px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.53);
 }
+
+
 .title {
     background: white;
     padding: 25px;
-    border-radius: 20px 20px 0 0; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    
+  
 }
 .title .btn {
     margin-right: 10px;
     margin-top: 10px;
 }
+
 .tampilan {
-    background: white;
+    background: rgb(255, 255, 255);
     padding: 25px;
    
-    border-radius: 0 0 20px 20px; /* bawah bulat */
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+   
 }
+
 .tampilan svg {
     width: 60px;
     height: 60px;
-    color: #4A90E2;
+    color: rgb(255, 255, 255);
     margin-bottom: 10px;
 }
 
-/*Tambah*/
+.tambah {
+    position: center;
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 30px 35px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.53);
+    border-radius: 20px; 
+ 
+}
+
+.tambah label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tambah input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid black;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.aksi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    
+}
+
+.aksi button {
+    width: 180px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+
+}
+
+select {
+    width:100%;
+    padding: 10px;
+    border-radius: 8px;
+
+}

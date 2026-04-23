@@ -1,8 +1,16 @@
 <?php
 session_start();
 include 'koneksi.php';
+
+if(!isset($_SESSION['user'])) {
+    header("Location: salah.php");
+    exit;
+
+}
 $query = mysqli_query($koneksi, "SELECT * FROM cicilan");
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +28,8 @@ $query = mysqli_query($koneksi, "SELECT * FROM cicilan");
     <header class="header">
      <h2>Sistem Cicilan</h2> 
      <div class="logout">
-    <a href="logout.php" class="btn btn-outline-primary">Logout</a>
+    <a href="logout.php" class="logout-link">
+         <i class="bi bi-box-arrow-right"></i> Logout</a>
 </div>
     </header>
 <div class=container>
@@ -63,7 +72,7 @@ fill="currentColor" viewBox="0 0 24 24" >
                         <td><?= $data['sisa_hutang'] ?></td>
                         <td><?= $data['status'] ?></td>
                         <td>
-                            <a href="delete.php?id=<?= $data['id_cicilan'] ?>"class="btn btn-outline-primary">🗑️</a>
+                            <a href="delete.php?id=<?= $data['id_cicilan'] ?>"class="btn btn-outline-primary">hapus</a>
                         </td>
                     </tr>
 

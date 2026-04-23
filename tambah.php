@@ -1,5 +1,12 @@
 <?php
+session_start();
 include "koneksi.php";
+
+if(!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+    
+}
 
 if (isset($_POST['simpan'])) {
 
@@ -31,23 +38,38 @@ if (isset($_POST['simpan'])) {
    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-<div class="tambah">
-<h3>Tambah Cicilan</h3>
 
-<form method="POST">
+  <header class="header">
+     <h2>Sistem Cicilan</h2> 
+    <a href="logout.php" class="logout-link">
+         <i class="bi bi-box-arrow-right"></i> Logout</a>
+    </header>
 
-    <label>Nama Barang</label><br>
-    <input type="text" name="nama_barang"><br><br>
+    
+        <div class="tambah">
+            <h3>Tambah Cicilan</h3>
+             <p> Masukkan detail cicilan </p>
+             <hr>
+                <form method="POST">
 
-    <label>Total Harga</label><br>
-    <input type="number" name="total_harga"><br><br>
+                    <label>Nama Barang</label><br>
+                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang"><br><br>
 
-     <a href="dashboard.php">Batal</a>
-    <button type="submit" name="simpan">Simpan</button>
+                    <label>Total Harga (Rp) </label><br>
+                            <input type="number" name="total_harga" placeholder="Masukkan harga"><br><br>
 
+                <div class="aksi">
+                <button type="button" onclick="window.location.href='dashboard.php'" class="batal">
+                    Batal
+                </button>
+
+                <button type="submit" name="simpan"  class="btn btn-primary">Simpan Cicilan</button>
+                </div>
    
 
-</form>
-</div>
+                 </form>
+            </div>
+        
+
 </body>
 </html>

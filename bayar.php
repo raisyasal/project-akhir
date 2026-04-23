@@ -1,11 +1,82 @@
+<?php
+session_start();
+include "koneksi.php";
+
+if(!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+    
+}
+
+$query = mysqli_query($koneksi, "SELECT * FROM cicilan");
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bayar Cicilan</title>
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+   
+   <link rel="stylesheet" href="style.css"> 
 </head>
+
 <body>
     
+    <header class="header">
+     <h2>Sistem Cicilan</h2> 
+     <a href="logout.php" class="logout-link">
+         <i class="bi bi-box-arrow-right"></i> Logout</a>
+    
+    </header>
+ <div class="tambah">
+            <h3>Bayar Cicilan</h3>
+             <p> Lakukan pembayaran cicilan </p>
+             <hr>
+                <form method="POST" action="proses_bayar.php">
+
+                    <label>Pilih Cicilan</label><br>
+                    <select name="id_cicilan">
+                        <?php 
+                        if(mysqli_num_rows($query) > 0) {
+                            while($d = mysqli_fetch_assoc($query)) { ?>
+                            <option value="<?= $d['id_cicilan']; ?>">
+                                <?= $d['nama_cicilan']; ?> (Sisa: Rp <?= $d['sisa_hutang']; ?>)
+                            </option>
+                            
+                            <?php } 
+
+                        } else {
+                            echo "<option> Tidak ada cicilan aktif </option>";
+                        }
+
+                        ?>
+
+                    </select><br><br>
+
+                    <label>Jumlah Pembayaran (Rp) </label><br>
+                            <input type="number" name="total_harga" placeholder="Masukkan jumlah pembayaran"><br><br>
+
+                <div class="aksi">
+                <button type="button" onclick="window.location.href='dashboard.php'" class="batal">
+                    Batal
+                </button>
+
+                <button type="submit" name="simpan"  class="btn btn-primary">Bayar Sekarang </button>
+                </div>
+   
+
+                 </form>
+            </div>
+        
+
 </body>
 </html>

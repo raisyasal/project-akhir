@@ -11,7 +11,7 @@ if (isset($_POST['login'])) {
     $data = mysqli_fetch_assoc($query);
 
     if($data) {
-        $_SESSION['login'] = true;
+        $_SESSION['user'] = $data['username'];
         $_SESSION['id_user'] = $data['id_user'];
 
         header("location: dashboard.php");
