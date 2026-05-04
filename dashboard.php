@@ -7,7 +7,28 @@ if(!isset($_SESSION['user'])) {
     exit;
 
 }
-$query = mysqli_query($koneksi, "SELECT * FROM cicilan");
+
+$data = mysqli_query($koneksi, "SELECT * FROM cicilan");
+
+$total_bulan=0;
+$aktif=0;
+$lunas=0;
+
+$data2 = mysqli_query($koneksi, "SELECT * FROM cicilan");
+
+while ($d = mysqli_fetch_assoc($data2)) {
+    if($d['status'] == 'aktif') {
+        $aktif++;
+
+        if($d['tenor'] > 0) {
+            $total_bulan += $d['total_harga'] / $d['tenor'];
+        }
+    }
+
+    if($d['status'] == 'lunas') {
+        $lunas++;
+    }
+}
 ?>
 
 
@@ -26,64 +47,89 @@ $query = mysqli_query($koneksi, "SELECT * FROM cicilan");
 </head>
 <body>
     <header class="header">
-     <h2>Sistem Cicilan</h2> 
+     <h2>CicilKu</h2> 
+     <div class="menu">
+        <a href="#" class="active"> Dashboard</a>
+        <a href="tambah.php">Tambah Cicilan</a>
+</div>
+
      <div class="logout">
     <a href="logout.php" class="logout-link">
          <i class="bi bi-box-arrow-right"></i> Logout</a>
 </div>
     </header>
+
+    <div class="summary">
+        <div class="box blue">
+           <span> Total Bulan Ini </span><br>
+        <h3>Rp <?= number_format($total_bulan) ?></h3>
+        <i class="bi bi-wallet2 icon"></i>
+</div>
+
+    <div class="box orange">
+      <span>   Aktif  </span><br>
+        <h3><?=$aktif?></h3>
+        <i class="bi bi-folder2-open icon"></i>
+</div>
+
+<div class="box green">
+    <span> Lunas </span> <br>
+    <h3><?= $lunas?></h3>
+    <i class="bi bi-check-circle icon"></i>
+</div>
+
+</div>
+
+<hr>
+
 <div class=container>
-    <div class="title">
+
+    <div class="main">
         <h3>Data Cicilan</h3>
-        <p>Keloala semua cicilan</p>
-       <a href="tambah.php" class="btn btn-primary">+ Tambah Cicilan</a>
-      <a href="bayar.php" class="btn btn-outline-primary">Bayar Cicilan</a>
-        <hr>
-    </div>
-    <div class="tampilan">
-         <?php if (mysqli_num_rows($query) == 0) { ?>
-        <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
-fill="currentColor" viewBox="0 0 24 24" >
-<!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
-<path d="M20 7H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-2h-5c-1.1 0-2-.9-2-2v-3c0-1.1.9-2 2-2h5V9c0-1.1-.9-2-2-2"></path>
-<path d="M17 13h5v3h-5zm-.43-10.82a1 1 0 0 0-.93-.11L8.01 5H17V3c0-.33-.16-.64-.43-.82"></path>
-</svg>
-        <h5> Belum ada cicilan</h5>
-        <p>Tambahkan Cicilan baru untuk memulai</p>
-        <?php } else { ?>
-         <table class="table table-bordered">
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Barang</th>
-                    <th>Total Harga</th>
-                    <th>Terbayar</th>
-                    <th>Sisa</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
+        <div class="list">
+            <?php while($row = mysqli_fetch_assoc($data)) {
+                $cicilan = ($row['tenor']>0) ? $row['total_harga'] / $row['tenor']:0;
+                ?>
 
-                <?php while ($data = mysqli_fetch_assoc($query)) { ?>
+            <div class="card">
+                <h3><?= $row['nama_cicilan']?></h3>
+                <p> Total: Rp<?= number_format($row['total_harga'])?></p>
+                <p> Cicilan: Rp<?= number_format($cicilan)?>/bulan</p>
+                <p> Terbayar: Rp<?= number_format($row['terbayar'])?></p>
+                <p> Sisa: Rp<?= number_format($row['sisa_hutang'])?></p>
 
-                    <tr>
-                        <td><?= $data['id_cicilan'] ?></td>
-                        <td><?= $data['nama_cicilan'] ?></td>
-                        <td><?= $data['total_harga'] ?></td>
-                        <td><?= $data['terbayar'] ?></td>
-                        <td><?= $data['sisa_hutang'] ?></td>
-                        <td><?= $data['status'] ?></td>
-                        <td>
-                            <a href="delete.php?id=<?= $data['id_cicilan'] ?>"class="btn btn-outline-primary">hapus</a>
-                        </td>
-                    </tr>
+                <?php 
+                $persen=0;
+                if ($row['total_harga'] > 0) {
+                $persen = ($row['terbayar'] / $row['total_harga']) * 100;
+                }
+                ?>
+                <div class="progress">
+                    <div class="progress-bar" style="width: <?= $persen ?>%"></div>
+                </div>
+                <div class="status-row">
+                <span class="<?= $row['status']?>">
+                    <?= $row['status']?>
+                </span>
+                <p><?= round($persen) ?>%</p>
+</div>
+                
 
-                <?php } ?>
+                <br>
 
-            </table>
+                <?php if ($row['status'] == 'aktif') { ?>
+                <a href ="bayar.php?id=<?= $row['id_cicilan']?>" class="btn bayar">Bayar</a>
+                <?php } else { ?>
+                <button class='btn bayar disabled'> Lunas </button>
+            <?php } ?>
+                <a href ="hapus.php?id=<?= $row['id_cicilan']?>" class="btn hapus">Hapus</a>
 
-        <?php } ?>
+</div>
+<?php 
+            } ?>
 
-    </div>
-    </div>
+</div>
+</div>
 </div>
 </body>
 </html>

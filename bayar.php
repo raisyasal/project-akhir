@@ -8,12 +8,30 @@ if(!isset($_SESSION['user'])) {
     
 }
 
-$query = mysqli_query($koneksi, "SELECT * FROM cicilan");
+$id = $_get['id'];
+$query = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_cicilan='$id");
+$data = mysqli_fetch_assoc($query);
 
+$cicilan = ($data['tenor']>0) ? $data['total_harga'] / $data['tenor']:0;
+$terbayar_baru = $data['terbayar'] + $cicilan;
+$sisa_baru = $data['total_harga'] - $terbayar_baru;
+
+if($sisa_baru <=0) {
+    $sisa_baru =0;
+    $status = "Lunas";
+} else {
+    $status ="Aktif";
+}
+
+$bayar= mysqli_query($koneksi "UPDATE cicilan SET 
+terbayar='$terbayar_baru',
+sisa_hutang='$sisa_baru',
+status='$status',
+WHERE id_cicilan='$id'");
+
+header("Location: dashboard.php");
+exit;
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +50,7 @@ $query = mysqli_query($koneksi, "SELECT * FROM cicilan");
 <body>
     
     <header class="header">
-     <h2>Sistem Cicilan</h2> 
+     <h2>CicilKu</h2> 
      <a href="logout.php" class="logout-link">
          <i class="bi bi-box-arrow-right"></i> Logout</a>
     

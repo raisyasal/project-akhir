@@ -12,15 +12,16 @@ if (isset($_POST['simpan'])) {
 
     $nama = $_POST['nama_barang'];
     $total = $_POST['total_harga'];
+    $tenor = $_POST['tenor'];
 
     $terbayar = 0;
     $sisa = $total;
     $status = "aktif";
 
     mysqli_query($koneksi, "INSERT INTO cicilan 
-    (nama_cicilan, total_harga, terbayar, sisa_hutang, status)
+    (nama_cicilan, total_harga, tenor, terbayar, sisa_hutang, status)
     VALUES 
-    ('$nama', '$total', '$terbayar', '$sisa', '$status')");
+    ('$nama', '$total', '$tenor', '$terbayar', '$sisa', '$status')");
 
     header("location: dashboard.php");
     exit;
@@ -40,7 +41,11 @@ if (isset($_POST['simpan'])) {
 <body>
 
   <header class="header">
-     <h2>Sistem Cicilan</h2> 
+     <h2>CicilKu</h2> 
+     <div class="menu">
+        <a href="dashboard.php"> Dashboard</a>
+        <a href="tambah.php" class="active">Tambah Cicilan</a>
+</div>
     <a href="logout.php" class="logout-link">
          <i class="bi bi-box-arrow-right"></i> Logout</a>
     </header>
@@ -53,23 +58,23 @@ if (isset($_POST['simpan'])) {
                 <form method="POST">
 
                     <label>Nama Barang</label><br>
-                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang"><br><br>
+                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang" required><br><br>
 
                     <label>Total Harga (Rp) </label><br>
-                            <input type="number" name="total_harga" placeholder="Masukkan harga"><br><br>
+                            <input type="number" name="total_harga" placeholder="Masukkan harga" required><br><br>
 
-                <div class="aksi">
-                <button type="button" onclick="window.location.href='dashboard.php'" class="batal">
-                    Batal
-                </button>
+                    <label> Tenor (bulan)</label><br>
+                            <input type="number" name="tenor" placeholder="Contoh: 12" required><br><br>
 
-                <button type="submit" name="simpan"  class="btn btn-primary">Simpan Cicilan</button>
-                </div>
-   
-
+                <div class="mt-3 d-grid gap-2">
+                 <button type="submit" name="simpan" class="btn btn-primary"> Simpan Cicilan </button>
+    <button type="button" onclick="window.location.href='dashboard.php'" class="btn btn-outline-secondary">Batal</button>
+                        </div>
                  </form>
             </div>
         
+
+           
 
 </body>
 </html>
