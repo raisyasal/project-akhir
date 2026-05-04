@@ -7,7 +7,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$query = mysqli_query ($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+$query = mysqli_query ($koneksi, "SELECT * FROM user WHERE BINARY username='$username' AND BINARY password='$password'");
 
 
 if(mysqli_num_rows($query) > 0){
