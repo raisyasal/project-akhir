@@ -1,23 +1,17 @@
 <?php
-session_start();
 include 'koneksi.php';
 
-if(isset($_POST['username']) && isset($_POST['password'])) {
+if(isset($_POST['username']) && isset($_POST['password'])){
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$query = mysqli_query ($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+mysqli_query($koneksi, "INSERT INTO user (username,password) VALUES ('$username','$password')");
 
+header("Location: login.php");
 
-if(mysqli_num_rows($query) > 0){
-   $_SESSION['username']=$username;
-    header("Location: dashboard.php");
-    exit;
-} else {
-    header("location:salah.php");
 }
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +27,11 @@ if(mysqli_num_rows($query) > 0){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="Login">
+ <div class="Login">
     <div class="login">
         <form method="POST">
-         
-            <h1>CicilKu</h1>
-            <h5>Masuk ke akun Anda</h5>
+            <h1>Registrasi</h1>
+            <h5>Buat akun Anda</h5>
 
             <div class="input">
                 <label for="floatingUsername">Username</label>
@@ -50,12 +43,12 @@ if(mysqli_num_rows($query) > 0){
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
             
             </div>
-            <button type="submit" name="login" class="btn btn-primary">Sign In</button>
+            <button type="submit" name="login" class="btn btn-primary">Sign Up</button>
         </form>
-        <div class="akun">
-            <p> Belum punya akun? <a href="register.php">Sign Up</a></p>
-        </div>
-
+    <div class="akun">
+            <p> Sudah punya akun? <a href="login.php">Login</a></p>
+</div>
+</div>
 </div>
 </body>
 </html>

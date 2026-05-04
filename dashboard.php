@@ -2,13 +2,14 @@
 session_start();
 include 'koneksi.php';
 
-if(!isset($_SESSION['user'])) {
-    header("Location: salah.php");
+if(!isset($_SESSION['username'])) {
+    header("Location: login.php");
     exit;
 
 }
 
 $data = mysqli_query($koneksi, "SELECT * FROM cicilan");
+
 
 $total_bulan=0;
 $aktif=0;
@@ -55,8 +56,24 @@ while ($d = mysqli_fetch_assoc($data2)) {
 
      <div class="logout">
     <a href="logout.php" class="logout-link">
-         <i class="bi bi-box-arrow-right"></i> Logout</a>
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+           
+    </svg>
+
+   <?php 
+if(isset($_SESSION['username'])){
+    echo $_SESSION['username'];
+     echo ' | <i class="bi bi-box-arrow-right"></i> Logout</a>';
+     } else {
+    echo "Guest";
+}
+?>
+
 </div>
+
+
     </header>
 
     <div class="summary">
@@ -85,6 +102,7 @@ while ($d = mysqli_fetch_assoc($data2)) {
 <div class=container>
 
     <div class="main">
+        
         <h3>Data Cicilan</h3>
         <div class="list">
             <?php while($row = mysqli_fetch_assoc($data)) {
@@ -93,6 +111,7 @@ while ($d = mysqli_fetch_assoc($data2)) {
 
             <div class="card">
                 <h3><?= $row['nama_cicilan']?></h3>
+                <hr>
                 <p> Total: Rp<?= number_format($row['total_harga'])?></p>
                 <p> Cicilan: Rp<?= number_format($cicilan)?>/bulan</p>
                 <p> Terbayar: Rp<?= number_format($row['terbayar'])?></p>
@@ -122,7 +141,7 @@ while ($d = mysqli_fetch_assoc($data2)) {
                 <?php } else { ?>
                 <button class='btn bayar disabled'> Lunas </button>
             <?php } ?>
-                <a href ="hapus.php?id=<?= $row['id_cicilan']?>" class="btn hapus">Hapus</a>
+                <a href ="delete.php?id=<?= $row['id_cicilan']?>" class="btn hapus">Hapus</a>
 
 </div>
 <?php 
