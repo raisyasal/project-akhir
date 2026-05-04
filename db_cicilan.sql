@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2026 at 03:12 AM
+-- Generation Time: May 04, 2026 at 12:42 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,17 +33,17 @@ CREATE TABLE `cicilan` (
   `total_harga` int(11) DEFAULT NULL,
   `terbayar` int(11) DEFAULT NULL,
   `sisa_hutang` int(11) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL
+  `status` varchar(20) DEFAULT NULL,
+  `tenor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cicilan`
 --
 
-INSERT INTO `cicilan` (`id_cicilan`, `nama_cicilan`, `total_harga`, `terbayar`, `sisa_hutang`, `status`) VALUES
-(1, 'Laptop ACER', 12000000, 3000000, 9000000, 'aktif'),
-(2, 'Iphone 17', 17000000, 5000000, 12000000, 'aktif'),
-(3, 'Headset Gaming', 500000, 500000, 0, 'lunas');
+INSERT INTO `cicilan` (`id_cicilan`, `nama_cicilan`, `total_harga`, `terbayar`, `sisa_hutang`, `status`, `tenor`) VALUES
+(3, 'Headset Gaming', 500000, 500000, 0, 'lunas', 1),
+(10, 'Handphone VIVO', 4000000, 333333, 3666667, 'aktif', 12);
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`) VALUES
-(1, 'raisyaGhazy', '125133');
+(1, 'raisyaGhazy', '125133'),
+(2, 'Raisya', '125');
 
 --
 -- Indexes for dumped tables
@@ -88,13 +89,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cicilan`
 --
 ALTER TABLE `cicilan`
-  MODIFY `id_cicilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cicilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
