@@ -26,29 +26,31 @@ header("Location: login.php");
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
- <div class="Login">
-    <div class="login">
+<body class="tubuh">
+ <div class="wrapper">
         <form method="POST">
             <h1>Registrasi</h1>
-            <h5>Buat akun Anda</h5>
-
-            <div class="input">
-                <label for="floatingUsername">Username</label>
-                <input type="text" class="form-control" id="floatingUsername" placeholder="Username" name="username" required>
+            <h3>Buat akun Anda</h3>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
                 <i class="bi bi-person-fill"></i>
             </div>
-            <div class="input">
-                <label for="floatingPassword">Password</label>
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
-            
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class="bi bi-lock-fill"></i>
             </div>
-            <button type="submit" name="login" class="btn btn-primary">Sign Up</button>
-        </form>
-    <div class="akun">
-            <p> Sudah punya akun? <a href="login.php">Login</a></p>
-</div>
-</div>
+            
+            <div class="remember-forget">
+                <label><input type="checkbox">Remember me</label>
+                <a href="#"> Need Help?</a>
+            </div>
+                <button type="submit" name="login" class="tombol">Sign Up</button>
+
+            <div class="register-link">
+                    <p>Sudah punya akun?<a href="login.php">Login</a></p>
+            </div>
+</form>
 </div>
 </body>
 </html>

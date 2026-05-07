@@ -32,30 +32,33 @@ if(mysqli_num_rows($query) > 0){
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="Login">
-    <div class="login">
+<body class="tubuh">
+  
+    <div class="wrapper">
         <form method="POST">
-         
             <h1>CicilKu</h1>
-            <h5>Masuk ke akun Anda</h5>
-
-            <div class="input">
-                <label for="floatingUsername">Username</label>
-                <input type="text" class="form-control" id="floatingUsername" placeholder="Username" name="username" required>
+            <h3>Masuk ke akun Anda</h3>
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Username" required>
                 <i class="bi bi-person-fill"></i>
             </div>
-            <div class="input">
-                <label for="floatingPassword">Password</label>
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
-            
-            </div>
-            <button type="submit" name="login" class="btn btn-primary">Sign In</button>
-        </form>
-        <div class="akun">
-            <p> Belum punya akun? <a href="register.php">Sign Up</a></p>
-        </div>
 
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Password" required>
+                <i class="bi bi-lock-fill"></i>
+            </div>
+            
+            <div class="remember-forget">
+                <label><input type="checkbox">Remember me</label>
+                <a href="#"> Need Help?</a>
+            </div>
+                <button type="submit" name="login" class="tombol">Sign In</button>
+
+            <div class="register-link">
+                    <p>Belum punya akun?<a href="register.php">Register</a></p>
+            </div>
+</form>
 </div>
+
 </body>
 </html>

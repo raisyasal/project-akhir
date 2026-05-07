@@ -1,32 +1,14 @@
 <?php
 session_start();
-include "koneksi.php";
+include 'koneksi.php';
 
 if(!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
-    
-}
 
-if (isset($_POST['simpan'])) {
-
-    $nama = $_POST['nama_barang'];
-    $total = $_POST['total_harga'];
-    $tenor = $_POST['tenor'];
-
-    $terbayar = 0;
-    $sisa = $total;
-    $status = "aktif";
-
-    mysqli_query($koneksi, "INSERT INTO cicilan 
-    (nama_cicilan, total_harga, tenor, terbayar, sisa_hutang, status)
-    VALUES 
-    ('$nama', '$total', '$tenor', '$terbayar', '$sisa', '$status')");
-
-    header("location: dashboard.php");
-    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -42,11 +24,6 @@ if (isset($_POST['simpan'])) {
 
   <header class="header">
      <h2>CicilKu</h2> 
-     <div class="menu">
-        <a href="dashboard.php"><i class="bi bi-house"></i> Dashboard</a>
-        <a href="tambah.php" class="active"><i class="bi bi-plus-circle"></i> Tambah Cicilan</a>
-        <a href="riwayat.php"> <i class="bi bi-clock"></i> Riwayat</a>
-</div>
     <div class="logout">
     <div class="logout-link">
          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -73,8 +50,8 @@ if(isset($_SESSION['username'])){
 
     
         <div class="tambah">
-            <h3>Tambah Cicilan</h3>
-             <p> Masukkan detail cicilan Anda</p>
+            <h3>Edit Cicilan</h3>
+             <p> Perbarui detail cicilan Anda </p>
              <hr>
                 <form method="POST">
 
@@ -88,7 +65,7 @@ if(isset($_SESSION['username'])){
                             <input type="number" name="tenor" placeholder="Contoh: 12" required><br><br>
 
                 <div class="mt-3 d-grid gap-2">
-                 <button type="submit" name="simpan" class="btn btn-primary style="background:'linear-gradient(90deg, #3b82f6, #2563eb);'"> Simpan Cicilan </button>
+                 <button type="submit" name="simpan" class="btn btn-primary"> Simpan Cicilan </button>
     <button type="button" onclick="window.location.href='dashboard.php'" class="btn btn-outline-secondary">Batal</button>
                         </div>
                 </form>
