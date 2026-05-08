@@ -14,6 +14,10 @@ $data = mysqli_fetch_assoc($query);
 
 $cicilan = ($data['tenor']>0) ? $data['total_harga'] / $data['tenor']:0;
 
+if($cicilan > $data['sisa_hutang']) {
+    $cicilan = $data['sisa_hutang'];
+}
+
 if(isset($_POST['bayar'])) {
 $terbayar_baru = $data['terbayar'] + $cicilan;
 $sisa_baru = $data['total_harga'] - $terbayar_baru;

@@ -124,7 +124,7 @@ if(isset($_SESSION['username'])){
                 <?php 
                 $persen=0;
                 if ($row['total_harga'] > 0) {
-                $persen = ($row['terbayar'] / $row['total_harga']) * 100;
+                $persen = floor(($row['terbayar'] / $row['total_harga']) * 100);
                 }
                 ?>
                 <div class="progress">
@@ -134,7 +134,7 @@ if(isset($_SESSION['username'])){
                 <span class="<?= $row['status']?>">
                     <?= $row['status']?>
                 </span>
-                <p><?= round($persen) ?>%</p>
+                <p><?= $persen ?>%</p>
 </div>
                 
 

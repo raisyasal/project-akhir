@@ -15,7 +15,9 @@ if(mysqli_num_rows($query) > 0){
     header("Location: dashboard.php");
     exit;
 } else {
-    header("location:salah.php");
+    $_SESSION['error'] ="Username atau password salah!";
+    header("Location: login.php");
+    exit;
 }
 }
 ?>
@@ -35,10 +37,20 @@ if(mysqli_num_rows($query) > 0){
 <body class="tubuh">
   
     <div class="wrapper">
-        <form method="POST">
-            <h1>CicilKu</h1>
-            <h3>Masuk ke akun Anda</h3>
-            <div class="input-box">
+        <div class="form-box login">
+            <form method="POST">
+                <h1>Login</h1>
+                 <?php if(isset($_SESSION['error'])) {
+            ?>
+            <div class="error">
+                <?= $_SESSION['error'];?>
+            </div>
+
+        <?php
+            unset($_SESSION['error']);
+        }
+        ?>
+                <div class="input-box">
                 <input type="text" name="username" placeholder="Username" required>
                 <i class="bi bi-person-fill"></i>
             </div>
@@ -47,18 +59,24 @@ if(mysqli_num_rows($query) > 0){
                 <input type="password" name="password" placeholder="Password" required>
                 <i class="bi bi-lock-fill"></i>
             </div>
-            
+        
             <div class="remember-forget">
-                <label><input type="checkbox">Remember me</label>
+                 <label><input type="checkbox">Remember me</label>
                 <a href="#"> Need Help?</a>
             </div>
-                <button type="submit" name="login" class="tombol">Sign In</button>
 
-            <div class="register-link">
-                    <p>Belum punya akun?<a href="register.php">Register</a></p>
-            </div>
+                <button type="submit" name="login" class="tombol">Login</button>
 </form>
 </div>
+
+        <div class="left-panel">
+        <h1> Hello, Selamat Datang! </h1>
+        <p> Tidak Memiliki akun?</p>
+        <a href="register.php"> Register </a>
+        </div>
+        
+</div>
+        
 
 </body>
 </html>
