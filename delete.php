@@ -26,17 +26,19 @@ $query = mysqli_query($koneksi, "DELETE FROM cicilan WHERE id_cicilan = '$id'");
    <link rel="stylesheet" href="style.css"> 
 
 </head>
-<body>
+<body class="warning-body">
+    <div class="warning-card">
+        <div class="warning-top">
+            <i class="bi bi-exclamation-triangle"></i>
+</div>
 
-<div class="delete-container">
-<div class='alert-hapus blue'>
-    <h3> Cicilan Belum Lunas</h3>
-    <hr>
-    <p> Data tidak bisa dihapus karena status belum lunas</p>
-    <a href='dashboard.php' class='kembali-btn'>
-    Kembali
+<div class="warning-content">
+    <h2> Peringatan </h2>
+    <p> Data tidak bisa dihapus <br> karena cicilan belum lunas. </p>
+
+    <a href="dashboard.php" class="warning-btn">
+        Kembali
     </a>
-    </div>
 </div>   
 </body>
 </html>

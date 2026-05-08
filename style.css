@@ -602,40 +602,61 @@ input[type="password"]::-ms-reveal {
     cursor: pointer;
 }
 
-.delete-container {
+.warning-body {
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-}
+   
 
-.alert-hapus {
-    width:400px;
+}
+.warning-card {
+    width: 450px;
     background: white;
-    padding:30px;
     border-radius: 20px;
-    text-align: center;
-    margin: 100px auto;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    border-bottom: 6px solid #2563eb;
+    overflow: hidden;
+    box-shadow: 0 10x 25px rgba(0, 0 ,0 , 0.3);
+    text-align:center ;
 }
 
-.alert-hapus h3 {
-    color: #ff2600;
-    margin-bottom: 15px;
+.warning-top {
+    background: #9d1c1c;
+    padding: 10px;
 }
 
-.alert-hapus p {
-    color: #6c757d;
-    margin-bottom: 20px;
-}
-
-.kembali-btn {
-    display: inline-block;
-    padding: 7px 80px;
-    background: linear-gradient(90deg, #3b82f6, #2563eb);
+.warning-top i {
+    font-size: 60px;
     color: white;
-    border-radius: 10px;
+}
+
+.warning-content {
+    padding: 20px;
+}
+
+.warning-content h2 {
+    color: #2d3250;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.warning-content p {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.warning-btn {
+    display: inline-block;
+    padding: 10px 45px;
+    background: #9d1c1c;
+    color: white;
     text-decoration: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+.warning-btn:hover {
+    background: #e14d4d;
 }
