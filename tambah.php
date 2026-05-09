@@ -7,7 +7,7 @@ if(!isset($_SESSION['username'])) {
     exit;
     
 }
-
+$id_user = $_SESSION['id_user'];
 if (isset($_POST['simpan'])) {
 
     $nama = $_POST['nama_barang'];
@@ -19,9 +19,9 @@ if (isset($_POST['simpan'])) {
     $status = "aktif";
 
     mysqli_query($koneksi, "INSERT INTO cicilan 
-    (nama_cicilan, total_harga, tenor, terbayar, sisa_hutang, status)
+    (id_user, nama_cicilan, total_harga, tenor, terbayar, sisa_hutang, status)
     VALUES 
-    ('$nama', '$total', '$tenor', '$terbayar', '$sisa', '$status')");
+    ('$id_user', '$nama', '$total', '$tenor', '$terbayar', '$sisa', '$status')");
 
     header("location: dashboard.php");
     exit;

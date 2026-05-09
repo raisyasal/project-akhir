@@ -8,10 +8,11 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 
 $query = mysqli_query ($koneksi, "SELECT * FROM user WHERE BINARY username='$username' AND BINARY password='$password'");
-
+$data = mysqli_fetch_assoc($query);
 
 if(mysqli_num_rows($query) > 0){
-   $_SESSION['username']=$username;
+     $_SESSION['id_user']=$data['id_user'];
+   $_SESSION['username']=$data['username'];
     header("Location: dashboard.php");
     exit;
 } else {

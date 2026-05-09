@@ -7,15 +7,15 @@ if(!isset($_SESSION['username'])) {
     exit;
 
 }
-
-$data = mysqli_query($koneksi, "SELECT * FROM cicilan");
+$id_user = $_SESSION['id_user'];
+$data = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user'");
 
 
 $total_bulan=0;
 $aktif=0;
 $lunas=0;
 
-$data2 = mysqli_query($koneksi, "SELECT * FROM cicilan");
+$data2 = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user'");
 
 while ($d = mysqli_fetch_assoc($data2)) {
     if($d['status'] == 'aktif') {

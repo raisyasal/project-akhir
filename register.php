@@ -6,7 +6,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
 $username = $_POST['username'];
 $password = $_POST['password'];
-
+$email = $_POST['email'];
 
 if(strlen($password) < 6) {
     $_SESSION['error']="Password minimal 6 karakter!";
@@ -20,7 +20,12 @@ if(mysqli_num_rows($cek)>0){
 header("Location: register.php");
 exit;
 }
-mysqli_query($koneksi, "INSERT INTO user (username,password) VALUES ('$username','$password')");
+if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['error'] = "Format email tidak valid!";
+    header("Location: register.php");
+    exit;
+}
+mysqli_query($koneksi, "INSERT INTO user (username,email,password) VALUES ('$username','$email','$password')");
 header("Location: login.php");
 exit;
 }

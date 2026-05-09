@@ -7,6 +7,9 @@ if(!isset($_SESSION['username'])) {
     exit;
 
 }
+$id_cicilan = $_GET['id'];
+$query = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_cicilan ='$id_cicilan'");
+$data = mysqli_fetch_array($query);
 ?>
 
 
@@ -53,16 +56,17 @@ if(isset($_SESSION['username'])){
             <h3>Edit Cicilan</h3>
              <p> Perbarui detail cicilan Anda </p>
              <hr>
-                <form method="POST">
+                <form action="update.php" method="POST">
+                    <input type="hidden" name="id_cicilan" value="<?= $data['id_cicilan'] ?>">
 
                     <label>Nama Barang</label><br>
-                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang" required><br><br>
+                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang" value="<?= $data['nama_cicilan'] ?>"required><br><br>
 
                     <label>Total Harga (Rp) </label><br>
-                            <input type="number" name="total_harga" placeholder="Masukkan harga" required><br><br>
+                            <input type="number" name="total_harga" placeholder="Masukkan harga" value="<?= $data['total_harga'] ?>" required><br><br>
 
                     <label> Tenor (bulan)</label><br>
-                            <input type="number" name="tenor" placeholder="Contoh: 12" required><br><br>
+                            <input type="number" name="tenor" placeholder="Contoh: 12" value="<?= $data['tenor'] ?>" required><br><br>
 
                 <div class="mt-3 d-grid gap-2">
                  <button type="submit" name="simpan" class="btn btn-primary"> Simpan Cicilan </button>
