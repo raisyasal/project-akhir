@@ -2,24 +2,38 @@
 session_start();
 include 'koneksi.php';
 
-if(isset($_POST['username']) && isset($_POST['password'])) {
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    unset($_SESSION['usernameErr']);
+    unset($_SESSION['passwordErr']);
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+    $formValid = true;
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-$query = mysqli_query ($koneksi, "SELECT * FROM user WHERE BINARY username='$username' AND BINARY password='$password'");
-$data = mysqli_fetch_assoc($query);
+$query = mysqli_query ($koneksi, "SELECT * FROM user WHERE BINARY username='$username'");
+$user = mysqli_fetch_assoc($query);
 
-if(mysqli_num_rows($query) > 0){
-     $_SESSION['id_user']=$data['id_user'];
-   $_SESSION['username']=$data['username'];
+if(!$user) {
+        $_SESSION['usernameErr'] = "Username tidak ditemukan";
+        $formValid = false;
+    }
+    else if($password != $user['password']){
+        $_SESSION['passwordErr'] = "Password tidak valid";
+        $formValid = false;
+    }
+    
+    if(!$formValid){
+        header("Location:login.php");
+        exit;
+    }
+
+    $_SESSION['login'] = true;
+    $_SESSION ['id_user'] = $user['id_user'];
+    $_SESSION ['username'] = $user['username'];
+
     header("Location: dashboard.php");
     exit;
-} else {
-    $_SESSION['error'] ="Username atau password salah!";
-    header("Location: login.php");
-    exit;
-}
+
 }
 ?>
 
@@ -41,34 +55,31 @@ if(mysqli_num_rows($query) > 0){
         <div class="form-box login">
             <form method="POST">
                 <h1>Login</h1>
-                 <?php if(isset($_SESSION['error'])) {
-            ?>
-            <div class="error">
-                <?= $_SESSION['error'];?>
-            </div>
-
-        <?php
-            unset($_SESSION['error']);
-        }
-        ?>
                 <div class="input-box">
                 <input type="text" name="username" placeholder="Username" required>
                 <i class="bi bi-person-fill"></i>
             </div>
+            <p class="error-text error"><?= $_SESSION['usernameErr'] ?? ''; ?></p>
 
             <div class="input-box">
                 <input type="password" name="password" placeholder="Password" required>
                 <i class="bi bi-lock-fill"></i>
             </div>
+            <p class="error-text error"><?= $_SESSION['passwordErr'] ?? ''; ?></p>
         
             <div class="remember-forget">
                  <label><input type="checkbox">Remember me</label>
                 <a href="#"> Need Help?</a>
             </div>
-
+<br>
                 <button type="submit" name="login" class="tombol">Login</button>
                 
 </form>
+
+<?php
+    unset($_SESSION['usernameErr']);
+    unset($_SESSION['passwordErr']);
+    ?>
 </div>
 
         <div class="left-panel">

@@ -7,8 +7,14 @@ if(!isset($_SESSION['username'])) {
     exit;
 
 }
+
+$cari ="";
+if(isset($_GET['cari'])){
+    $cari = $_GET['cari'];
+}
+
 $id_user = $_SESSION['id_user'];
-$data = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user'");
+$data = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user' AND nama_cicilan LIKE '%$cari'");
 
 
 $total_bulan=0;
@@ -106,10 +112,39 @@ if(isset($_SESSION['username'])){
 <div class=container>
 
     <div class="main">
-        
         <h3>Data Cicilan</h3>
+
+        <div class="search-box">
+        <form method="GET">
+        <i class="bi bi-search"></i>
+        <input type="text" name="cari" placeholder="Cari disinih..." value="<?= $cari ?>">
+        <button type="submit" class="filter-btn">
+        Cari
+        </button>
+    </form>
+</div>
+
         <div class="list">
-            <?php while($row = mysqli_fetch_assoc($data)) {
+            <?php if(mysqli_num_rows($data)== 0) { ?>
+
+            <div class="kosong">
+                <?php if($cari != "") { ?>
+
+                <i class='bi bi-search'></i>
+                <h3> Data Tidak Ditemukan </h3>
+                <p> Tidak ada data cicilan yang cocok</p>
+              
+
+           <?php } else { ?>
+
+                 <i class='bi bi-wallet2'></i>
+                <h3> Data Cicilan Masih Kosong </h3>
+                <p> Silahkan tambah cicilan terlebih dahulu</p>
+            <?php } ?>
+            </div>
+
+            <?php } else {
+                while($row = mysqli_fetch_assoc($data)) {
                 $cicilan = ($row['tenor']>0) ? $row['total_harga'] / $row['tenor']:0;
                 ?>
 
@@ -151,6 +186,7 @@ if(isset($_SESSION['username'])){
 </div>
 </div>
 <?php 
+                }
             } ?>
 
 </div>

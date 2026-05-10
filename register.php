@@ -2,29 +2,52 @@
 session_start();
 include 'koneksi.php';
 
-if(isset($_POST['username']) && isset($_POST['password'])){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    unset($_SESSION['emailErr']);
+    unset($_SESSION['usernameErr']);
+    unset($_SESSION['passwordErr']);
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$email = $_POST['email'];
+    $formValid = true;
 
-if(strlen($password) < 6) {
-    $_SESSION['error']="Password minimal 6 karakter!";
+if (empty($_POST['email'])) {
+        $_SESSION['emailErr'] = "Email tidak boleh kosong";
+        $formValid = false;
+} else {
+    $email = htmlspecialchars($_POST['email']);
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['emailErr'] = "Format email tidak valid";
+            $formValid = false;
+}
+}
+
+if (empty($_POST['username'])) {
+        $_SESSION['usernameErr'] = "Username tidak boleh kosong";
+        $formValid = false;
+    } else {
+        $username = htmlspecialchars($_POST['username']);
+        if(strlen($username) > 20) {
+            $_SESSION['usernameErr'] = "Username tidak boleh lebih dari 20 karakter";
+            $formValid = false;
+        } 
+    }
+
+
+if (empty($_POST['password'])) {
+        $_SESSION['passwordErr'] = "Password tidak boleh kosong";
+        $formValid = false;
+} else {
+    $password = $_POST['password'];
+    if (strlen($password) < 6) {
+        $_SESSION['passwordErr'] = "Password minimal 6 karakter";
+        $formValid = false;
+    }
+}
+
+if (!$formValid){
     header("Location: register.php");
     exit;
 }
-$cek = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username'");
 
-if(mysqli_num_rows($cek)>0){
-    $_SESSION['error']="Username sudah digunankan!";
-header("Location: register.php");
-exit;
-}
-if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['error'] = "Format email tidak valid!";
-    header("Location: register.php");
-    exit;
-}
 mysqli_query($koneksi, "INSERT INTO user (username,email,password) VALUES ('$username','$email','$password')");
 header("Location: login.php");
 exit;
@@ -48,34 +71,34 @@ exit;
         <div class="kotak register">
             <form method="POST">
                 <h1>Registrasi</h1>
-                <?php
-                if(isset($_SESSION['error'])) { ?>
-                <div class="error">
-                    <?= $_SESSION['error']; ?>
-                </div>
-                
-                <?php 
-                unset($_SESSION['error']);
-                } ?>
-
                 <div class="input-box">
                 <input type="text" name="username" placeholder="Username" required>
                 <i class="bi bi-person-fill"></i>
             </div>
+            <p class="text-danger error"><?= $_SESSION['usernameErr'] ?? ''; ?></p>
 
              <div class="input-box">
                 <input type="text" name="email" placeholder="Email" required>
                <i class="bi bi-envelope-at-fill"></i>
             </div>
+                <p class="text-danger error"><?= $_SESSION['emailErr'] ?? ''; ?></p>
 
             <div class="input-box">
                 <input type="password" name="password" placeholder="Password" required>
                 <i class="bi bi-lock-fill"></i>
             </div>
-        
+                <p class="text-danger error"><?= $_SESSION['passwordErr'] ?? ''; ?></p>
+                <br>
                 <button type="submit" name="register" class="tombol">Register</button>
         
 </form>
+
+<?php
+unset($_SESSION['emailErr']);
+unset($_SESSION['usernameErr']);
+unset($_SESSION['passwordErr']);
+?>
+
 </div>
 
         <div class="right-panel">
