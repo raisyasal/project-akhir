@@ -110,9 +110,9 @@ if(isset($_SESSION['username'])){
 <hr>
 
 <div class=container>
-
     <div class="main">
-        <h3>Data Cicilan</h3>
+        
+        <h2>Data Cicilan</h2>
 
         <div class="search-box">
         <form method="GET">

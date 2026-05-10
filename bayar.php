@@ -36,6 +36,8 @@ status='$status'
 WHERE id_cicilan='$id'
 ");
 
+mysqli_query($koneksi, "INSERT INTO riwayat(id_cicilan, aksi) VALUES('$id', 'Bayar')");
+
 header("Location: dashboard.php");
 exit;
 }

@@ -1,10 +1,15 @@
 <?php
 session_start();
+include 'koneksi.php';
+
 if(!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit;
-
 }
+
+$id_user = $_SESSION['id_user'];
+$data = mysqli_query($koneksi, "SELECT riwayat.*,cicilan.nama_cicilan FROM riwayat JOIN cicilan ON riwayat.id_cicilan = cicilan.id_cicilan WHERE cicilan.id_user ='$id_user' ORDER BY riwayat.waktu ASC");
+
 ?>
 
 <!DOCTYPE html>
@@ -51,12 +56,54 @@ if(isset($_SESSION['username'])){
 </div>
     </header>
 
-    <h3>Riwayat Pembayaran</h3>
-   
+<div class="riwayat-card">
+    <div class="riwayat-banner">
+        <div>
+    <h2>Riwayat Pembayaran</h2>
+    <p> Berikut adalah catatan semua aktivitas cicilan Anda </p>
+        </div>
+    </div>
+
+    <div class="riwayat-box">
+        <div class="riwayat-top">
+            <form method="GET" class="search-riwayat">
+                <i class="bi bi-search"></i>
+                <input type="text" name="cari" placeholder="Cari nama barang...">
+            </form>
+
+        <table class="riwayat-table">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>Nama Barang</th>
+                <th>Aksi</th>
+                <th>Waktu</th>
+            </tr>
+        </thead>
+
+            <tbody>
+<?php $no=1; ?>
+<?php while($row=mysqli_fetch_assoc($data)) { ?>
+
+             <tr>
+                <td><?= $no++ ?></td>
+                <td class="nama-barang"><?= $row['nama_cicilan'] ?></td>
+                <td><?= $row['aksi'] ?></td>
+                <td class="waktu">
+                    <i class="bi bi-clock"></i>
+                        <?= date('d M Y H:i', strtotime($row['waktu'])) ?></td>
+            </tr>
+            <?php } ?>
+</tbody>
+        </table>
+</div>
+</div>
+</div>
+
  <footer class="footer">
     <p> 2026 CicilKu | Kelola cicilan lebih mudah</p>
 </footer>    
-      
+    
 </body>
 </html>
 

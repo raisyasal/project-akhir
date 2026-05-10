@@ -7,6 +7,23 @@ if(!isset($_SESSION['username'])) {
     exit;
 
 }
+
+if(isset($_POST['simpan'])) {
+$id = $_POST['id_cicilan'];
+$nama_cicilan = $_POST['nama_barang'];
+$total_harga = $_POST['total_harga'];
+$tenor = $_POST['tenor'];
+
+$query = mysqli_query($koneksi, "UPDATE cicilan SET
+    nama_cicilan = '$nama_cicilan', total_harga = '$total_harga',tenor = '$tenor'
+    WHERE id_cicilan = '$id';");
+
+mysqli_query($koneksi, "INSERT INTO riwayat(id_cicilan, aksi) VALUES ('$id', 'Edit')");
+
+header("Location:dashboard.php");
+exit;
+}
+
 $id_cicilan = $_GET['id'];
 $query = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_cicilan ='$id_cicilan'");
 $data = mysqli_fetch_array($query);
@@ -56,7 +73,7 @@ if(isset($_SESSION['username'])){
             <h3>Edit Cicilan</h3>
              <p> Perbarui detail cicilan Anda </p>
              <hr>
-                <form action="update.php" method="POST">
+                <form method="POST">
                     <input type="hidden" name="id_cicilan" value="<?= $data['id_cicilan'] ?>">
 
                     <label>Nama Barang</label><br>

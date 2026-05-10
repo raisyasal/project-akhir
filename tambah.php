@@ -23,6 +23,8 @@ if (isset($_POST['simpan'])) {
     VALUES 
     ('$id_user', '$nama', '$total', '$tenor', '$terbayar', '$sisa', '$status')");
 
+    $id_cicilan = mysqli_insert_id($koneksi);
+    mysqli_query($koneksi, "INSERT INTO riwayat(id_cicilan, aksi) VALUES('$id_cicilan','Tambah')");
     header("location: dashboard.php");
     exit;
 }

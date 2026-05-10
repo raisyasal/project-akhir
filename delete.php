@@ -1,5 +1,12 @@
 <?php
+session_start();
 include 'koneksi.php';
+
+if(!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit;
+
+}
 
 $id = $_GET['id'];
 $cek = mysqli_query($koneksi, "SELECT status FROM cicilan WHERE id_cicilan='$id'");
@@ -7,10 +14,13 @@ $data= mysqli_fetch_assoc($cek);
 
 if ($data['status'] == 'lunas') {
 $query = mysqli_query($koneksi, "DELETE FROM cicilan WHERE id_cicilan = '$id'"); 
+
            header("Location: dashboard.php");
            exit;
-}
 
+           
+           
+}
 ?>
 
 <!DOCTYPE html>

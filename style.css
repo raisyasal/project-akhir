@@ -349,7 +349,7 @@ input[type="password"]::-ms-reveal {
     align-items: center;
     position: relative;
     background: white;
-    border: 3px solid #2563eb;
+    border: 3px solid #2564ebe3;
     border-radius:9px ;
     overflow: hidden;
 }
@@ -371,7 +371,7 @@ input[type="password"]::-ms-reveal {
     width: 90px;
     height: 50px;
     border: none;
-    background-color: #2563eb;
+    background-color: #2564ebe3;
     color: white;
     font-size: 15px;
     font-weight: 500;
@@ -735,4 +735,104 @@ input[type="password"]::-ms-reveal {
 
 .warning-btn:hover {
     background: #e14d4d;
+}
+
+.riwayat-card {
+    width:95%;
+    margin: 30px auto;
+}
+
+.riwayat-banner {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 15px 14px 25px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.riwayat-banner h2 {
+    font-size: 33px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.riwayat-banner p {
+    color: #6b7280;
+    font-size: 17px;
+}
+
+.riwayat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.riwayat-top {
+    displa: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.search-riwayat {
+    width:320px;
+    height: 42px;
+    border: 1.5px solid #8e9194;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    gap: 10px;
+}
+
+.search-riwayat i {
+    color: #717476;
+    font-size: 18px;
+}
+
+.search-riwayat input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 15px;
+}
+
+.riwayat-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #8e9194;
+    table-layout: fixed;
+}
+
+.riwayat-table thead {
+    background: #2564eb65;
+}
+
+.riwayat-table th {
+    padding: 18px;
+    text-align: left;
+    font-size: 17px;
+    color: black;
+}
+
+.riwayat-table td {
+   padding: 25px 18px;
+   border-bottom: 1px solid #8e9194;
+    
+}
+
+.waktu {
+    color: black;
+    font-weight: bold;
+
+}
+
+.riwayat-table th:last-child,
+.riwayat-table td:last-child{
+    padding-left: 50px !important;
 }
