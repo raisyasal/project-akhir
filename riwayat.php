@@ -8,7 +8,13 @@ if(!isset($_SESSION['username'])) {
 }
 
 $id_user = $_SESSION['id_user'];
-$data = mysqli_query($koneksi, "SELECT riwayat.*,cicilan.nama_cicilan FROM riwayat JOIN cicilan ON riwayat.id_cicilan = cicilan.id_cicilan WHERE cicilan.id_user ='$id_user' ORDER BY riwayat.waktu ASC");
+
+$cari ="";
+if(isset($_GET['cari'])){
+    $cari = $_GET['cari'];
+}
+
+$data = mysqli_query($koneksi, "SELECT riwayat.*,cicilan.nama_cicilan FROM riwayat JOIN cicilan ON riwayat.id_cicilan = cicilan.id_cicilan WHERE cicilan.id_user ='$id_user' AND cicilan.nama_cicilan LIKE '%$cari%' ORDER BY riwayat.waktu ASC");
 
 ?>
 
@@ -65,12 +71,19 @@ if(isset($_SESSION['username'])){
     </div>
 
     <div class="riwayat-box">
+          <?php
+            if(mysqli_num_rows($data) == 0) { ?>
+            <div class="kosong">
+                <i class="bi bi-clock-history"></i>
+            <h3> Riwayat Masih Kosong</h3>
+        <p> Belum ada aktivitas cicilan</p>
+</div>
+<?php } else { ?>
         <div class="riwayat-top">
             <form method="GET" class="search-riwayat">
                 <i class="bi bi-search"></i>
                 <input type="text" name="cari" placeholder="Cari nama barang...">
             </form>
-
         <table class="riwayat-table">
         <thead>
             <tr>
@@ -96,9 +109,12 @@ if(isset($_SESSION['username'])){
             <?php } ?>
 </tbody>
         </table>
+         <?php } ?>
+       
 </div>
 </div>
 </div>
+
 
  <footer class="footer">
     <p> 2026 CicilKu | Kelola cicilan lebih mudah</p>
