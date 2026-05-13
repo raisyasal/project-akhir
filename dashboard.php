@@ -14,7 +14,7 @@ if(isset($_GET['cari'])){
 }
 
 $id_user = $_SESSION['id_user'];
-$data = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user' AND nama_cicilan LIKE '%$cari'");
+$data = mysqli_query($koneksi, "SELECT * FROM cicilan WHERE id_user ='$id_user' AND nama_cicilan LIKE '%$cari%'");
 
 
 $total_bulan=0;
