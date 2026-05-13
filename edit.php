@@ -77,7 +77,7 @@ if(isset($_SESSION['username'])){
                     <input type="hidden" name="id_cicilan" value="<?= $data['id_cicilan'] ?>">
 
                     <label>Nama Barang</label><br>
-                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang" value="<?= $data['nama_cicilan'] ?>"readonly><br><br>
+                         <input type="text" name="nama_barang" placeholder="Masukkan nama barang" value="<?= $data['nama_cicilan'] ?>" required><br><br>
 
                     <label>Total Harga (Rp) </label><br>
                             <input type="number" name="total_harga" placeholder="Masukkan harga" value="<?= $data['total_harga'] ?>" required><br><br>
