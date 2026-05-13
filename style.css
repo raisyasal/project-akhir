@@ -561,7 +561,7 @@ input[type="password"]::-ms-reveal {
    color: #374151;
 }
 
-.edir:hover {
+.edit:hover {
     background: #e5e7eb;
 }
 .hapus {
