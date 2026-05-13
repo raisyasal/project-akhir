@@ -82,7 +82,7 @@ if(isset($_SESSION['username'])){
         <div class="riwayat-top">
             <form method="GET" class="search-riwayat">
                 <i class="bi bi-search"></i>
-                <input type="text" name="cari" placeholder="Cari nama barang...">
+                <input type="text" name="cari" value="<?= $cari ?>" placeholder="Cari nama barang...">
             </form>
         <table class="riwayat-table">
         <thead>
